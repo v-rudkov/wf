@@ -88,4 +88,24 @@ private class Typeform_Test {
         System.assertEquals('false', Typeform.getTextAnswer(answer));
     }
 
+    @isTest static void testConvertToFormAnswers_1() {
+        List<Form_Answer__c> formAnswers = Typeform.convertToFormAnswers('nICm7F', Typeform.deserialize(payload));
+
+        System.assertEquals('0010Y00001RLY1e', formAnswers[0].Account__c);
+        System.assertEquals('nICm7F', formAnswers[0].Form_ID__c);
+        System.assertEquals('Between 18 and 65', formAnswers[0].Answer__c);
+
+        System.assertEquals('0010Y00001RLY1e', formAnswers[1].Account__c);
+        System.assertEquals('nICm7F', formAnswers[1].Form_ID__c);
+        System.assertEquals('test@wefoxTest.de', formAnswers[1].Answer__c);
+
+        System.assertEquals('0010Y00001RLY1e', formAnswers[2].Account__c);
+        System.assertEquals('nICm7F', formAnswers[2].Form_ID__c);
+        System.assertEquals('false', formAnswers[2].Answer__c);
+
+        System.assertEquals('0010Y00001RLY1e', formAnswers[3].Account__c);
+        System.assertEquals('nICm7F', formAnswers[3].Form_ID__c);
+        System.assertEquals('WefoxTU03', formAnswers[3].Answer__c);
+
+    }
 }
