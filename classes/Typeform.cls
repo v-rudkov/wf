@@ -2,6 +2,27 @@ public class Typeform {
 
     public class TypeformException extends Exception {}
 
+    public class ResponsePayload {
+        public List<Response> items;
+    }
+
+    public class Response {
+        public String token;
+        public Datetime submitted_at;
+        public List<Answer> answers;
+    }
+
+    public class Answer {
+        public String type;
+        public String email;
+        public Boolean yes_no;
+        public Choice choice;
+    }
+
+    public class Choice {
+        public String label;
+    }
+
     public static String retrieveResponses(String formId) {
 
         HttpRequest request = new HttpRequest();
@@ -26,4 +47,7 @@ public class Typeform {
         return result;
     }
 
+    public static Typeform.ResponsePayload deserialize(String payload) {
+        return (Typeform.ResponsePayload)JSON.deserialize(payload, Typeform.ResponsePayload.class);
+    }
 }
