@@ -19,4 +19,11 @@ public class Typeform {
         return response.getBody();
     }
 
+    @TestVisible
+    private static String fixReservedKeywords(String payload) {
+        String result = payload;
+        result = result.replaceAll('"boolean"', '"yes_no"');
+        return result;
+    }
+
 }
