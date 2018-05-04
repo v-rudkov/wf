@@ -54,4 +54,38 @@ private class Typeform_Test {
         System.assertEquals('Between 18 and 65', deserialized.items[0].answers[0].choice.label);
         System.assertEquals(false, deserialized.items[0].answers[2].yes_no);
     }
+
+    @isTest static void testGetTextAnswer_1() {
+        Typeform.Answer answer = new Typeform.Answer();
+        answer.type = 'choice';
+        answer.choice = new Typeform.Choice();
+        answer.choice.label = 'Between 18 and 65';
+
+        System.assertEquals('Between 18 and 65', Typeform.getTextAnswer(answer));
+    }
+
+    @isTest static void testGetTextAnswer_2() {
+        Typeform.Answer answer = new Typeform.Answer();
+        answer.type = 'email';
+        answer.email = 'test@example.com';
+
+        System.assertEquals('test@example.com', Typeform.getTextAnswer(answer));
+    }
+
+    @isTest static void testGetTextAnswer_3() {
+        Typeform.Answer answer = new Typeform.Answer();
+        answer.type = 'text';
+        answer.text = 'some text';
+
+        System.assertEquals('some text', Typeform.getTextAnswer(answer));
+    }
+
+    @isTest static void testGetTextAnswer_4() {
+        Typeform.Answer answer = new Typeform.Answer();
+        answer.type = 'yes_no';
+        answer.yes_no = false;
+
+        System.assertEquals('false', Typeform.getTextAnswer(answer));
+    }
+
 }

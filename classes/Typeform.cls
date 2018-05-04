@@ -16,6 +16,7 @@ public class Typeform {
     public class Answer {
         public String type;
         public String email;
+        public String text;
         public Boolean yes_no;
         public Choice choice;
     }
@@ -54,5 +55,14 @@ public class Typeform {
 
     public static Typeform.ResponsePayload deserialize(String payload) {
         return (Typeform.ResponsePayload)JSON.deserialize(payload, Typeform.ResponsePayload.class);
+    }
+
+    @TestVisible
+    private static String getTextAnswer(Typeform.Answer answer) {
+        if (answer.type == 'choice') return answer.choice.label;
+        if (answer.type == 'email') return answer.email;
+        if (answer.type == 'text') return answer.text;
+        if (answer.type == 'yes_no') return String.valueOf(answer.yes_no);
+        return null;
     }
 }
