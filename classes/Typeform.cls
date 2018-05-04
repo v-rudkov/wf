@@ -8,6 +8,7 @@ public class Typeform {
 
     public class Response {
         public String token;
+        public Customer hidden;
         public Datetime submitted_at;
         public List<Answer> answers;
     }
@@ -21,6 +22,10 @@ public class Typeform {
 
     public class Choice {
         public String label;
+    }
+
+    public class Customer {
+        public String uid;
     }
 
     public static String retrieveResponses(String formId) {

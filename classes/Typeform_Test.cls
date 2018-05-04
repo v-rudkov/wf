@@ -6,6 +6,9 @@ private class Typeform_Test {
             '"total_items" : 1,' +
             '"items" : [' +
                 '{' +
+                    '"hidden" : {' +
+                       '"uid" : "0010Y00001RLY1e"' +
+                    '},' +
                     '"token" : "c7daf651abb635ca399c7eabc75917f2",' +
                     '"landed_at" : "2018-04-28T14:49:59Z",' +
                     '"answers" : [' +
@@ -46,6 +49,7 @@ private class Typeform_Test {
 
     @isTest static void testDeserialize_1() {
         Typeform.ResponsePayload deserialized= Typeform.deserialize(payload);
+        System.assertEquals('0010Y00001RLY1e', deserialized.items[0].hidden.uid);
         System.assertEquals(Datetime.newInstanceGmt(2018, 4, 28, 14, 50, 32), deserialized.items[0].submitted_at);
         System.assertEquals('Between 18 and 65', deserialized.items[0].answers[0].choice.label);
         System.assertEquals(false, deserialized.items[0].answers[2].yes_no);
