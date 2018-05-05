@@ -1,0 +1,10 @@
+<apex:page standardController="Form_Response__c" extensions="FormResponseExtentions">
+    <table>
+        <apex:Repeat value="{!answers}" var="answer">
+            <tr>
+                <td>{!answer.question}</td>
+                <td>{!answer.answer}</td>
+            </tr>
+        </apex:Repeat>
+    </table>
+</apex:page>
