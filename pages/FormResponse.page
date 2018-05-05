@@ -1,10 +1,12 @@
 <apex:page standardController="Form_Response__c" extensions="FormResponseExtentions">
     <apex:sectionheader title="Form Response" />
-    <apex:pageBlock title="Answers">
-        <apex:Repeat value="{!answers}" var="answer">
-            <apex:pageblocksection>
-                <apex:outputText value="{!answer.question}" />
-                <apex:outputText value="{!answer.answer}" />
+    <apex:pageBlock>
+        <apex:Repeat value="{!responses}" var="response">
+            <apex:pageblocksection title="{!response.sob.Name}">
+                <apex:Repeat value="{!response.answers}" var="answer">
+                    <apex:outputText value="{!answer.question}" />
+                    <apex:outputText value="{!answer.answer}" />
+                </apex:Repeat>
             </apex:pageblocksection>
         </apex:Repeat>
     </apex:pageBlock>
