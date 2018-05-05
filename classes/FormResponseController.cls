@@ -1,12 +1,22 @@
 public with sharing class FormResponseController {
 
     public List<Response> responses {get; set;}
+    public Form_Response__c formResponse {
+        get {
+            this.responses = new List<Response>();
+            if (formResponse.Account__c != null) {
+                for (Form_Response__c formResponse : [select Name, Response__c from Form_Response__c where Account__c = :formResponse.Account__c]) {
+                    responses.add(new Response(formResponse));
+                }
+            }
+            return formResponse;
+        }
+        set;
+    }
 
     public FormResponseController() {
+        this.formResponse = new Form_Response__c();
         this.responses = new List<Response>();
-        for (Form_Response__c formResponse : [select Name, Response__c from Form_Response__c]) {
-            responses.add(new Response(formResponse));
-        }
     }
 
     @TestVisible private class Response {
