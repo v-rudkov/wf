@@ -1,10 +1,8 @@
-public with sharing class FormResponseExtentions {
+public with sharing class FormResponseController {
 
-    public List<Response> responses {get;set;}
+    public List<Response> responses {get; set;}
 
-    public FormResponseExtentions() {}
-
-    public FormResponseExtentions(ApexPages.StandardController controller) {
+    public FormResponseController() {
         this.responses = new List<Response>();
         for (Form_Response__c formResponse : [select Name, Response__c from Form_Response__c]) {
             responses.add(new Response(formResponse));

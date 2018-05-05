@@ -1,4 +1,4 @@
-<apex:page standardController="Form_Response__c" extensions="FormResponseExtentions">
+<apex:page controller="FormResponseController">
     <apex:sectionheader title="Form Response" />
     <apex:pageBlock>
         <apex:Repeat value="{!responses}" var="response">
