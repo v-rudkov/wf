@@ -21,6 +21,8 @@ public class Typeform {
         public String email;
         public String text;
         public Boolean yes_no;
+        public Datetime dt;
+        public Integer num;
         public Choice choice;
         public Field field;
     }
@@ -69,6 +71,8 @@ public class Typeform {
     private static String fixReservedKeywords(String payload) {
         String result = payload;
         result = result.replaceAll('"boolean"', '"yes_no"');
+        result = result.replaceAll('"date"', '"dt"');
+        result = result.replaceAll('"number"', '"num"');
         return result;
     }
 
@@ -116,6 +120,8 @@ public class Typeform {
         if (answer.type == 'email') return answer.email;
         if (answer.type == 'text') return answer.text;
         if (answer.type == 'yes_no') return String.valueOf(answer.yes_no);
+        if (answer.type == 'dt') return String.valueOf(answer.dt);
+        if (answer.type == 'num') return String.valueOf(answer.num);
         return null;
     }
 }
