@@ -29,7 +29,15 @@ public class Typeform {
         public String uid;
     }
 
-    public static String retrieveResponses(String formId) {
+    public static List<Form_Response__c> retrieveResponses(String formId) {
+        return convertToFormResponses(
+            formId,
+            deserialize(fixReservedKeywords(sendRequest(formId)))
+        );
+    }
+
+    @TestVisible
+    private static String sendRequest(String formId) {
 
         HttpRequest request = new HttpRequest();
 
@@ -53,11 +61,13 @@ public class Typeform {
         return result;
     }
 
-    public static Typeform.ResponsePayload deserialize(String payload) {
+    @TestVisible
+    private static Typeform.ResponsePayload deserialize(String payload) {
         return (Typeform.ResponsePayload)JSON.deserialize(payload, Typeform.ResponsePayload.class);
     }
 
-    public static List<Form_Response__c> convertToFormResponses(String formId, Typeform.ResponsePayload payload) {
+    @TestVisible
+    private static List<Form_Response__c> convertToFormResponses(String formId, Typeform.ResponsePayload payload) {
         List<Form_Response__c> result = new List<Form_Response__c>();
 
         for (Typeform.Response response : payload.items) {
