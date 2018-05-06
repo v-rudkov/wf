@@ -25,8 +25,10 @@ public class FormResponse {
     public String accountId {
         get;
         set {
-            accountId = value;
-            sob.Account__c = value;
+            try {
+                accountId = value;
+                sob.Account__c = value;
+            } catch (Exception ex) {}
         }
     }
     public String formId {
