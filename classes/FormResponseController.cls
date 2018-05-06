@@ -27,7 +27,7 @@ public with sharing class FormResponseController {
             this.sob = response;
             this.answers = new List<Answer>();
 
-            for (Typeform.Answer answer : (List<Typeform.Answer>)JSON.deserialize(sob.Response__c, List<Typeform.Answer>.class)) {
+            for (FormResponse.Answer answer : (List<FormResponse.Answer>)JSON.deserialize(sob.Response__c, List<FormResponse.Answer>.class)) {
                 answers.add(new Answer(answer));
             }
         }
@@ -37,9 +37,9 @@ public with sharing class FormResponseController {
         public String question {get; set;}
         public String answer {get; set;}
 
-        public Answer (Typeform.Answer answer) {
-            this.question = 'question';
-            this.answer = answer.type;
+        public Answer (FormResponse.Answer answer) {
+            this.question = answer.question;
+            this.answer = answer.answer;
         }
     }
 }
