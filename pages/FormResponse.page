@@ -1,0 +1,18 @@
+<apex:page controller="FormResponseController">
+    <apex:form>
+        <apex:sectionheader title="Form Responses" />
+        <apex:inputField required="false" value="{!formResponse.Account__c}">
+            <apex:actionSupport event="onchange" rerender="responses"/>
+        </apex:inputField>
+        <apex:pageBlock id="responses">
+            <apex:Repeat value="{!responses}" var="response">
+                <apex:pageblocksection title="{!response.sob.Name}">
+                    <apex:Repeat value="{!response.answers}" var="answer">
+                        <apex:outputText value="{!answer.question}" />
+                        <apex:outputText value="{!answer.answer}" />
+                    </apex:Repeat>
+                </apex:pageblocksection>
+            </apex:Repeat>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
