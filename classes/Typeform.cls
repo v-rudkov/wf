@@ -34,7 +34,7 @@ public class Typeform {
         public String uid;
     }
 
-    public static List<Form_Response__c> retrieveResponses(String formId) {
+    public static FormResponses retrieveResponses(String formId) {
         return convertToFormResponses(
             formId,
             deserialize(fixReservedKeywords(sendRequest(formId)))
@@ -72,7 +72,7 @@ public class Typeform {
     }
 
     @TestVisible
-    private static List<Form_Response__c> convertToFormResponses(String formId, Typeform.ResponsePayload payload) {
+    private static FormResponses convertToFormResponses(String formId, Typeform.ResponsePayload payload) {
         List<Form_Response__c> result = new List<Form_Response__c>();
 
         for (Typeform.Response typeformResponse : payload.items) {
@@ -88,7 +88,7 @@ public class Typeform {
             result.add(formResponse.sob);
         }
 
-        return result;
+        return new FormResponses(result);
     }
 
     @TestVisible
