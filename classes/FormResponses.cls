@@ -15,6 +15,10 @@ public class FormResponses {
             formIds.add(formResponse.Form_ID__c);
         }
 
+        Map<String, Form__c> forms = new Map<String, Form__c>();
+        for (Form__c form : [select Name, ID__c from Form__c where ID__c in :formIds]) {
+            forms.put(form.ID__c, form);
+        }
 
         Map<String, Form_Question__c> questions = new Map<String, Form_Question__c>();
         for (Form_Question__c question : [select Name, Title__c from Form_Question__c where Form__r.ID__c in :formIds]) {
@@ -22,11 +26,17 @@ public class FormResponses {
         }
 
         for (Form_Response__c formResponse : formResponses) {
+
+            // enriching Response__c with questions
             List<FormResponse.Answer> answers = (List<FormResponse.Answer>)JSON.deserialize(formResponse.Response__c, List<FormResponse.Answer>.class);
             for (FormResponse.Answer answer : answers) {
                 if (questions.containsKey(answer.questionId)) answer.question = questions.get(answer.questionId).Title__c;
             }
             formResponse.Response__c = JSON.serialize(answers);
+
+            // enriching form title
+            if (forms.containsKey(formResponse.Form_ID__c)) formResponse.Form_Title__c = forms.get(formResponse.Form_ID__c).Name;
+
         }
 
         Database.SaveResult[] results = Database.insert(formResponses, false);

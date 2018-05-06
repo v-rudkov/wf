@@ -5,7 +5,7 @@ public with sharing class FormResponseController {
         get {
             this.responses = new List<Response>();
             if (formResponse.Account__c != null) {
-                for (Form_Response__c formResponse : [select Name, Response__c from Form_Response__c where Account__c = :formResponse.Account__c]) {
+                for (Form_Response__c formResponse : [select Name, Form_Title__c, Response__c from Form_Response__c where Account__c = :formResponse.Account__c]) {
                     responses.add(new Response(formResponse));
                 }
             }

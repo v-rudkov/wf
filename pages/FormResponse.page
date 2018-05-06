@@ -6,7 +6,7 @@
         </apex:inputField>
         <apex:pageBlock id="responses">
             <apex:Repeat value="{!responses}" var="response">
-                <apex:pageblocksection title="{!response.sob.Name}">
+                <apex:pageblocksection title="{!response.sob.Form_Title__c}">
                     <apex:Repeat value="{!response.answers}" var="answer">
                         <apex:outputText value="{!answer.question}" />
                         <apex:outputText value="{!answer.answer}" />
