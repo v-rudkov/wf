@@ -1,5 +1,6 @@
 public class FormResponses {
 
+    @TestVisible
     private List<Form_Response__c> formResponses = new List<Form_Response__c>();
 
     public FormResponses(List<Form_Response__c> formResponses) {

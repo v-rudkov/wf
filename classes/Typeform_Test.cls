@@ -1,7 +1,7 @@
 @isTest
-private class Typeform_Test {
+public class Typeform_Test {
 
-    private static String payload =
+    public static String payload =
         '{' +
             '"total_items" : 1,' +
             '"items" : [' +
@@ -89,23 +89,30 @@ private class Typeform_Test {
     }
 
     @isTest static void testConvertToFormAnswers_1() {
-        List<Form_Answer__c> formAnswers = Typeform.convertToFormAnswers('nICm7F', Typeform.deserialize(payload));
+        List<FormResponse.Answer> formAnswers = Typeform.convertToFormAnswers(Typeform.deserialize(payload).items[0].answers);
 
-        System.assertEquals('0010Y00001RLY1e', formAnswers[0].Account__c);
-        System.assertEquals('nICm7F', formAnswers[0].Form_ID__c);
-        System.assertEquals('Between 18 and 65', formAnswers[0].Answer__c);
+        System.assertEquals('62405912', formAnswers[0].questionId);
+        System.assertEquals('Between 18 and 65', formAnswers[0].answer);
 
-        System.assertEquals('0010Y00001RLY1e', formAnswers[1].Account__c);
-        System.assertEquals('nICm7F', formAnswers[1].Form_ID__c);
-        System.assertEquals('test@wefoxTest.de', formAnswers[1].Answer__c);
+        System.assertEquals('62334414', formAnswers[1].questionId);
+        System.assertEquals('test@wefoxTest.de', formAnswers[1].answer);
 
-        System.assertEquals('0010Y00001RLY1e', formAnswers[2].Account__c);
-        System.assertEquals('nICm7F', formAnswers[2].Form_ID__c);
-        System.assertEquals('false', formAnswers[2].Answer__c);
+        System.assertEquals('62405974', formAnswers[2].questionId);
+        System.assertEquals('false', formAnswers[2].answer);
 
-        System.assertEquals('0010Y00001RLY1e', formAnswers[3].Account__c);
-        System.assertEquals('nICm7F', formAnswers[3].Form_ID__c);
-        System.assertEquals('WefoxTU03', formAnswers[3].Answer__c);
+        System.assertEquals('62334344', formAnswers[3].questionId);
+        System.assertEquals('WefoxTU03', formAnswers[3].answer);
+
+    }
+
+    @isTest static void testRetrieveResponses_1() {
+        Test.setMock(HttpCalloutMock.class, new TypeformMock());
+
+        FormResponses formResponses = Typeform.retrieveResponses('nICm7F');
+
+        System.assertEquals('c7daf651abb635ca399c7eabc75917f2', formResponses.formResponses[0].Name);
+        System.assertEquals('nICm7F', formResponses.formResponses[0].Form_ID__c);
+        System.assertEquals(Datetime.newInstanceGmt(2018, 4, 28, 14, 50, 32), formResponses.formResponses[0].Submitted_Date__c);
 
     }
 }
