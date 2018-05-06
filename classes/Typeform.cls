@@ -2,18 +2,21 @@ public class Typeform {
 
     public class TypeformException extends Exception {}
 
-    public class ResponsePayload {
+    @TestVisible
+    private class ResponsePayload {
         public List<Response> items;
     }
 
-    public class Response {
+    @TestVisible
+    private class Response {
         public String token;
         public Customer hidden;
         public Datetime submitted_at;
         public List<Answer> answers;
     }
 
-    public class Answer {
+    @TestVisible
+    private class Answer {
         public String type;
         public String email;
         public String text;
@@ -22,15 +25,18 @@ public class Typeform {
         public Field field;
     }
 
-    public class Choice {
+    @TestVisible
+    private class Choice {
         public String label;
     }
 
-    public class Field {
+    @TestVisible
+    private class Field {
         public String id;
     }
 
-    public class Customer {
+    @TestVisible
+    private class Customer {
         public String uid;
     }
 
