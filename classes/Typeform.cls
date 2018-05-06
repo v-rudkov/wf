@@ -57,17 +57,15 @@ public class Typeform {
         return (Typeform.ResponsePayload)JSON.deserialize(payload, Typeform.ResponsePayload.class);
     }
 
-    public static List<Form_Answer__c> convertToFormAnswers(String formId, Typeform.ResponsePayload payload) {
-        List<Form_Answer__c> result = new List<Form_Answer__c>();
+    public static List<Form_Response__c> convertToFormResponses(String formId, Typeform.ResponsePayload payload) {
+        List<Form_Response__c> result = new List<Form_Response__c>();
 
         for (Typeform.Response response : payload.items) {
-            for (Typeform.Answer answer : response.answers) {
-                result.add(new Form_Answer__c(
-                    Account__c = response.hidden.uid,
-                    Form_ID__c = formId,
-                    Answer__c = getTextAnswer(answer)
-                ));
-            }
+            result.add(new Form_Response__c(
+                Account__c = response.hidden.uid,
+                Form_ID__c = formId,
+                Response__c = JSON.serialize(response.answers)
+            ));
         }
 
         return result;
